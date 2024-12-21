@@ -216,6 +216,7 @@ export async function resolveDependency(
   }
 
   const pkgData = await getPackageData(resolvedName)
+  checkBetaVersion(pkgData)
   const { tags, error } = pkgData
   dep.pkgData = pkgData
   let err: Error | string | null = null
@@ -312,4 +313,24 @@ function parseAliasedPackage(currentVersion: string) {
     return { name: '', version: '' }
 
   return { name: m[1], version: m[2] ?? '' }
+}
+
+function checkBetaVersion(pkgData: PackageData) {
+  const { versions, tags } = pkgData
+  let newestBetaVersion = ''
+  versions.forEach((item) => {
+    if (!item.includes('-')) {
+      return
+    }
+    if (!newestBetaVersion) {
+      newestBetaVersion = item
+      return
+    }
+    if (semver.gt(item, newestBetaVersion)) {
+      newestBetaVersion = item
+    }
+  })
+  if (newestBetaVersion !== '') {
+    tags.prerelease = newestBetaVersion
+  }
 }

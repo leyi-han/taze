@@ -25,7 +25,7 @@
   ],
   "scripts": {
     "lint": "eslint .",
-    "dev": "cross-env DEBUG=taze:* esno ./src/cli.ts",
+    "dev": "cross-env DEBUG=taze:* esno ./src/cli.ts major -r -I --exclude pnpm",
     "start": "esno ./src/cli.ts",
     "build": "unbuild",
     "typecheck": "tsc",
