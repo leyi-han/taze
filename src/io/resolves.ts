@@ -216,7 +216,7 @@ export async function resolveDependency(
   }
 
   const pkgData = await getPackageData(resolvedName)
-  checkBetaVersion(pkgData)
+  // checkBetaVersion(pkgData)
   const { tags, error } = pkgData
   dep.pkgData = pkgData
   let err: Error | string | null = null

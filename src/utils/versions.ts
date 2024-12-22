@@ -83,7 +83,7 @@ export function getMaxSatisfying(versions: string[], current: string, mode: Rang
     if (!range)
       throw new Error('invalid_range')
 
-    version = semver.maxSatisfying(versions, range)
+    version = semver.maxSatisfying(versions, range, { includePrerelease: true })
   }
 
   if (!version)
